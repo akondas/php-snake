@@ -79,5 +79,4 @@ class Char
     {
         return html_entity_decode(sprintf('&#x%s;', $code), ENT_NOQUOTES, 'UTF-8');
     }
-
 }

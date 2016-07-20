@@ -54,17 +54,14 @@ class Board
         return $this->map;
     }
 
-
     private function generateMap()
     {
-        for($i=0; $i<$this->width; $i++) {
+        for ($i = 0; $i < $this->width; ++$i) {
             $this->map[$i] = array_fill(0, $this->height, null);
         }
     }
 
     private function generateOutline()
     {
-
     }
-
 }

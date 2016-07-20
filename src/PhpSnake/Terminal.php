@@ -37,5 +37,4 @@ class Terminal
     {
         return $this->height;
     }
-
 }
