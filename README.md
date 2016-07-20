@@ -15,6 +15,7 @@ php snake.php
 * [Box drawing in PHP](http://jonathonhill.net/2012-11-26/box-drawing-in-php/)
 * [Terminal Control Escape Sequences](http://www.termsys.demon.co.uk/vtansi.htm)
 * [Beautiful PHP CLI Scripts](http://www.slideshare.net/donatJ1/beautiful-phpcli-scripts)
+* [readline_callback_handler_install](http://php.net/manual/en/function.readline-callback-handler-install.php)
 
 ## License
 

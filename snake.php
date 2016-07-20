@@ -1,20 +1,13 @@
 <?php
 
-declare (strict_types = 1);
+namespace Game;
 
-readline_callback_handler_install('', function() { });
+include 'vendor/autoload.php';
 
-$block = html_entity_decode('&#x2588;', ENT_NOQUOTES, 'UTF-8');
+use PhpSnake\Game\Board;
+use PhpSnake\Game\Drawer;
 
-for($i=0; $i<5; $i++) {
-    fwrite(STDOUT, $block);
-}
+$board = new Board(40, 10);
+$drawer = new Drawer(STDOUT);
 
-
-/*
-while (true) {
-    $char = fread(STDIN, 1);
-    echo $char;
-    usleep(5000);
-}
-*/
+$drawer->drawMap($board->getMap());

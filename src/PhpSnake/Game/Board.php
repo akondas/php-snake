@@ -4,6 +4,8 @@ declare (strict_types = 1);
 
 namespace PhpSnake\Game;
 
+use PhpSnake\Terminal\Char;
+
 class Board
 {
     /**
@@ -56,12 +58,17 @@ class Board
 
     private function generateMap()
     {
-        for ($i = 0; $i < $this->width; ++$i) {
-            $this->map[$i] = array_fill(0, $this->height, null);
+        for ($i = 0; $i < $this->height; ++$i) {
+            $this->map[$i] = array_fill(0, $this->width, ' ');
         }
     }
 
     private function generateOutline()
     {
+        $this->map[0][0] = Char::boxTopLeft();
+        $this->map[0][$this->width - 1] = Char::boxTopRight();
+
+        $this->map[$this->height - 1][0] = Char::boxBottomLeft();
+        $this->map[$this->height - 1][$this->width - 1] = Char::boxBottomRight();
     }
 }
