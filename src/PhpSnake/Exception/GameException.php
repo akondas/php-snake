@@ -6,7 +6,6 @@ namespace PhpSnake\Exception;
 
 class GameException extends \Exception
 {
-
     /**
      * @return GameException
      */
@@ -14,5 +13,4 @@ class GameException extends \Exception
     {
         return new self('Snake collision');
     }
-
 }

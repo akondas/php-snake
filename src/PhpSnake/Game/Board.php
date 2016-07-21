@@ -122,9 +122,9 @@ class Board
         $col = ($this->width / 2) - ($length / 2);
         $row = $this->height / 2;
 
-        for($i=0; $i<$length; $i++) {
+        for ($i = 0; $i < $length; ++$i) {
             $this->map[$row][$col] = $text[$i];
-            $col++;
+            ++$col;
         }
     }
 

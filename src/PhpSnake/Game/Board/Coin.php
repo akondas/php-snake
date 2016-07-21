@@ -9,7 +9,7 @@ class Coin extends Point
     /**
      * @var string
      */
-    private $char = '$';
+    private $char = "\033[42m\033[30m$\033[0m";
 
     /**
      * @param int $row

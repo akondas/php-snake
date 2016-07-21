@@ -47,7 +47,7 @@ class Game
             $this->gameOver();
         }
     }
-    
+
     public function gameOver()
     {
         $this->board->writeGameOver();
@@ -58,5 +58,4 @@ class Game
     {
         $this->drawer->draw($this->board);
     }
-    
 }

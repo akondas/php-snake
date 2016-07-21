@@ -45,7 +45,7 @@ class Snake
         $this->boardCols = $boardCols;
         $this->boardRows = $boardRows;
 
-        for ($i = 1;$i < 12;++$i) {
+        for ($i = 1;$i < 5;++$i) {
             $this->points[] = new Point($head->getRow(), $head->getCol() - $i, Char::shadeBlock());
         }
         array_unshift($this->points, $head);
@@ -102,7 +102,7 @@ class Snake
     private function checkCollision(Point $next)
     {
         foreach ($this->points as $point) {
-            if($point->overlaps($next)) {
+            if ($point->overlaps($next)) {
                 throw GameException::snakeCollision();
             }
         }
