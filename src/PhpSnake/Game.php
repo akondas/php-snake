@@ -28,7 +28,7 @@ class Game
     public function __construct()
     {
         $this->terminal = new Terminal();
-        $this->board = new Board(intval($this->terminal->getWidth() / 2), 20);
+        $this->board = new Board(intval($this->terminal->getWidth() * .7), 20);
         $this->drawer = new Drawer(STDOUT);
 
         $this->drawBoard();
@@ -41,7 +41,7 @@ class Game
                 $input = $this->terminal->getChar();
                 $this->board->moveSnake($input);
                 $this->drawBoard();
-                usleep(50000);
+                usleep(60000);
             }
         } catch (GameException $exception) {
             $this->gameOver();
