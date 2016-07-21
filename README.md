@@ -1,6 +1,29 @@
 # PHP-Snake
 
-Popular game implementation in PHP and running in CLI.
+Popular snake game implementation in PHP and running in CLI.
+
+```
+╔════════════════════════════════════════════════╗
+║                                                ║
+║                  ░░░░░░░░░░░░                  ║
+║                             ░                  ║
+║                             ░                  ║
+║                             ░                  ║
+║                       $     ░                  ║
+║                             ░                  ║
+║                             ░                  ║
+║                             ░                  ║
+║                             █                  ║
+║                                                ║
+║                                                ║
+║                                                ║
+║                                                ║
+║                                                ║
+║                                                ║
+║                                                ║
+║                                                ║
+╚════════════════════════════════════════════════╝
+```
 
 ## Launch the game
 
