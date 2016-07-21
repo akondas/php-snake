@@ -115,6 +115,19 @@ class Board
         return $this->map;
     }
 
+    public function writeGameOver()
+    {
+        $text = 'GAME OVER';
+        $length = strlen($text);
+        $col = ($this->width / 2) - ($length / 2);
+        $row = $this->height / 2;
+
+        for($i=0; $i<$length; $i++) {
+            $this->map[$row][$col] = $text[$i];
+            $col++;
+        }
+    }
+
     private function applyElements()
     {
         $this->map = $this->sourceMap;

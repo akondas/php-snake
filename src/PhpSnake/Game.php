@@ -4,6 +4,7 @@ declare (strict_types = 1);
 
 namespace PhpSnake;
 
+use PhpSnake\Exception\GameException;
 use PhpSnake\Game\Board;
 use PhpSnake\Game\Drawer;
 
@@ -30,16 +31,32 @@ class Game
         $this->board = new Board(intval($this->terminal->getWidth() / 2), 20);
         $this->drawer = new Drawer(STDOUT);
 
-        $this->drawer->draw($this->board);
+        $this->drawBoard();
     }
 
     public function run()
     {
-        while (true) {
-            $input = $this->terminal->getChar();
-            $this->board->moveSnake($input);
-            $this->drawer->draw($this->board);
-            usleep(50000);
+        try {
+            while (true) {
+                $input = $this->terminal->getChar();
+                $this->board->moveSnake($input);
+                $this->drawBoard();
+                usleep(50000);
+            }
+        } catch (GameException $exception) {
+            $this->gameOver();
         }
     }
+    
+    public function gameOver()
+    {
+        $this->board->writeGameOver();
+        $this->drawBoard();
+    }
+
+    private function drawBoard()
+    {
+        $this->drawer->draw($this->board);
+    }
+    
 }

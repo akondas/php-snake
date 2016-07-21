@@ -4,6 +4,7 @@ declare (strict_types = 1);
 
 namespace PhpSnake\Game;
 
+use PhpSnake\Exception\GameException;
 use PhpSnake\Game\Board\Point;
 use PhpSnake\Terminal\Char;
 
@@ -44,7 +45,7 @@ class Snake
         $this->boardCols = $boardCols;
         $this->boardRows = $boardRows;
 
-        for ($i = 1;$i < 5;++$i) {
+        for ($i = 1;$i < 12;++$i) {
             $this->points[] = new Point($head->getRow(), $head->getCol() - $i, Char::shadeBlock());
         }
         array_unshift($this->points, $head);
@@ -87,14 +88,24 @@ class Snake
         $this->points[0]->setChar(Char::shadeBlock());
         $next = new Point($row, $col, Char::block());
 
-        $this->checkCollision();
+        $this->checkCollision($next);
 
         array_unshift($this->points, $next);
         $this->lastPoint = array_pop($this->points);
     }
 
-    private function checkCollision()
+    /**
+     * @param Point $next
+     *
+     * @throws GameException
+     */
+    private function checkCollision(Point $next)
     {
+        foreach ($this->points as $point) {
+            if($point->overlaps($next)) {
+                throw GameException::snakeCollision();
+            }
+        }
     }
 
     public function advance()
