@@ -37,6 +37,11 @@ class Snake
         }
     }
 
+    public function move()
+    {
+        
+    }
+
     /**
      * @return Point
      */

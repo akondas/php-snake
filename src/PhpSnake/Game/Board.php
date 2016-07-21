@@ -29,11 +29,15 @@ class Board
      */
     private $snake;
 
+    /**
+     * @param int $width
+     * @param int $height
+     */
     public function __construct(int $width, int $height)
     {
         $this->width = $width;
         $this->height = $height;
-        $this->snake = new Snake(intval($width/2), intval($height/2));
+        $this->snake = new Snake(intval($height/2), intval($width/2));
 
         $this->generateMap();
         $this->generateOutline();
@@ -67,8 +71,14 @@ class Board
     private function applySnake()
     {
         $this->applyPoint($this->snake->getHead());
+        foreach ($this->snake->getTail() as $point) {
+            $this->applyPoint($point);
+        }
     }
 
+    /**
+     * @param Point $point
+     */
     private function applyPoint(Point $point)
     {
         $this->map[$point->getRow()][$point->getCol()] = $point->getChar();
