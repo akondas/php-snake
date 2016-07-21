@@ -4,6 +4,7 @@ declare (strict_types = 1);
 
 namespace PhpSnake\Game;
 
+use PhpSnake\Game\Board\Coin;
 use PhpSnake\Game\Board\Point;
 use PhpSnake\Terminal\Char;
 
@@ -35,6 +36,11 @@ class Board
     private $snake;
 
     /**
+     * @var Coin[]:array
+     */
+    private $coins;
+
+    /**
      * @param int $width
      * @param int $height
      */
@@ -42,7 +48,9 @@ class Board
     {
         $this->width = $width;
         $this->height = $height;
+
         $this->snake = new Snake($height, $width);
+        $this->randomCoins(1);
 
         $this->generateMap();
         $this->generateOutline();
@@ -51,10 +59,36 @@ class Board
         $this->applyElements();
     }
 
+    public function randomCoins(int $count)
+    {
+        for ($i = 0; $i < $count; ++$i) {
+            $col = rand(1, $this->width - 2);
+            $row = rand(1, $this->height - 2);
+
+            $this->coins[] = new Coin($row, $col);
+        }
+    }
+
     public function moveSnake(string $input)
     {
         $this->snake->move($input);
+        $this->checkCoins();
         $this->applyElements();
+    }
+
+    private function checkCoins()
+    {
+        $head = $this->snake->getPoints()[0];
+
+        if (!empty($this->coins)) {
+            foreach ($this->coins as $index => $coin) {
+                if ($head->overlaps($coin)) {
+                    $this->snake->advance();
+                    unset($this->coins[$index]);
+                    $this->randomCoins(1);
+                }
+            }
+        }
     }
 
     /**
@@ -87,6 +121,12 @@ class Board
 
         foreach ($this->snake->getPoints() as $point) {
             $this->applyPoint($point);
+        }
+
+        if (!empty($this->coins)) {
+            foreach ($this->coins as $coin) {
+                $this->applyPoint($coin);
+            }
         }
     }
 

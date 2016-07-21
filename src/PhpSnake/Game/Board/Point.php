@@ -64,4 +64,14 @@ class Point
     {
         $this->char = $char;
     }
+
+    /**
+     * @param Point $point
+     * 
+     * @return bool
+     */
+    public function overlaps(Point $point)
+    {
+        return $this->row == $point->getRow() && $this->col == $point->getCol();
+    }
 }

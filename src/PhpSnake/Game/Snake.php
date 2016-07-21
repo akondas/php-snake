@@ -30,6 +30,11 @@ class Snake
     private $boardCols;
 
     /**
+     * @var Point[]|null
+     */
+    private $lastPoint;
+
+    /**
      * @param int $boardRows
      * @param int $boardCols
      */
@@ -80,8 +85,21 @@ class Snake
         }
 
         $this->points[0]->setChar(Char::shadeBlock());
-        array_unshift($this->points, new Point($row, $col, Char::block()));
-        array_pop($this->points);
+        $next = new Point($row, $col, Char::block());
+
+        $this->checkCollision();
+
+        array_unshift($this->points, $next);
+        $this->lastPoint = array_pop($this->points);
+    }
+
+    private function checkCollision()
+    {
+    }
+
+    public function advance()
+    {
+        array_push($this->points, $this->lastPoint);
     }
 
     /**
