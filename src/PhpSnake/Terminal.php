@@ -20,6 +20,7 @@ class Terminal
     {
         $this->width = intval(`tput cols`);
         $this->height = intval(`tput lines`);
+        stream_set_blocking(STDIN, false);
     }
 
     /**
@@ -36,5 +37,17 @@ class Terminal
     public function getHeight(): int
     {
         return $this->height;
+    }
+
+    /**
+     * @return string
+     */
+    public function getChar(): string
+    {
+        readline_callback_handler_install('', function () {});
+        $char = stream_get_contents(STDIN, 1);
+        readline_callback_handler_remove();
+
+        return $char;
     }
 }

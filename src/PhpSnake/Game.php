@@ -27,15 +27,19 @@ class Game
     public function __construct()
     {
         $this->terminal = new Terminal();
-        $this->board = new Board(intval($this->terminal->getWidth()/2), 20);
+        $this->board = new Board(intval($this->terminal->getWidth() / 2), 20);
         $this->drawer = new Drawer(STDOUT);
 
-        $this->drawer->drawMap($this->board->getMap());
+        $this->drawer->draw($this->board);
     }
 
     public function run()
     {
-
+        while (true) {
+            $input = $this->terminal->getChar();
+            $this->board->moveSnake($input);
+            $this->drawer->draw($this->board);
+            usleep(50000);
+        }
     }
-
 }

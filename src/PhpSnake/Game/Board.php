@@ -25,6 +25,11 @@ class Board
     private $map;
 
     /**
+     * @var array
+     */
+    private $sourceMap;
+
+    /**
      * @var Snake
      */
     private $snake;
@@ -37,11 +42,19 @@ class Board
     {
         $this->width = $width;
         $this->height = $height;
-        $this->snake = new Snake(intval($height/2), intval($width/2));
+        $this->snake = new Snake($height, $width);
 
         $this->generateMap();
         $this->generateOutline();
-        $this->applySnake();
+        $this->sourceMap = $this->map;
+
+        $this->applyElements();
+    }
+
+    public function moveSnake(string $input)
+    {
+        $this->snake->move($input);
+        $this->applyElements();
     }
 
     /**
@@ -68,10 +81,11 @@ class Board
         return $this->map;
     }
 
-    private function applySnake()
+    private function applyElements()
     {
-        $this->applyPoint($this->snake->getHead());
-        foreach ($this->snake->getTail() as $point) {
+        $this->map = $this->sourceMap;
+
+        foreach ($this->snake->getPoints() as $point) {
             $this->applyPoint($point);
         }
     }
@@ -96,40 +110,39 @@ class Board
         $this->map[0][0] = Char::boxTopLeft();
         $this->map[0][$this->width - 1] = Char::boxTopRight();
 
-        $this->generateHLine(0, 1, $this->width-2, Char::boxHorizontal());
-        $this->generateHLine($this->height - 1, 1, $this->width-2, Char::boxHorizontal());
+        $this->generateHLine(0, 1, $this->width - 2, Char::boxHorizontal());
+        $this->generateHLine($this->height - 1, 1, $this->width - 2, Char::boxHorizontal());
 
-        $this->generateVLine(0, 1, $this->height-2, Char::boxVertical());
-        $this->generateVLine($this->width-1, 1, $this->height-2, Char::boxVertical());
+        $this->generateVLine(0, 1, $this->height - 2, Char::boxVertical());
+        $this->generateVLine($this->width - 1, 1, $this->height - 2, Char::boxVertical());
 
         $this->map[$this->height - 1][0] = Char::boxBottomLeft();
         $this->map[$this->height - 1][$this->width - 1] = Char::boxBottomRight();
     }
 
     /**
-     * @param int $row
-     * @param int $start
-     * @param int $cols
+     * @param int    $row
+     * @param int    $start
+     * @param int    $cols
      * @param string $char
      */
     private function generateHLine(int $row, int $start, int $cols, string $char)
     {
-        for ($i=0;$i<$cols;$i++) {
-            $this->map[$row][$start+$i] = $char;
+        for ($i = 0;$i < $cols;++$i) {
+            $this->map[$row][$start + $i] = $char;
         }
     }
 
     /**
-     * @param int $col
-     * @param int $start
-     * @param int $rows
+     * @param int    $col
+     * @param int    $start
+     * @param int    $rows
      * @param string $char
      */
     private function generateVLine(int $col, int $start, int $rows, string $char)
     {
-        for ($i=0;$i<$rows;$i++) {
-            $this->map[$start+$i][$col] = $char;
+        for ($i = 0;$i < $rows;++$i) {
+            $this->map[$start + $i][$col] = $char;
         }
     }
-
 }

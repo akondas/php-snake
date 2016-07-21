@@ -20,22 +20,42 @@ class Drawer
     }
 
     /**
-     * @param array $map
+     * @param Board $board
      */
-    public function drawMap(array $map)
+    public function draw(Board $board)
     {
+        $this->hideCursor();
+        $this->moveCursorToStart();
+
         $this->newLine();
 
-        foreach ($map as $line) {
+        foreach ($board->getMap() as $line) {
             foreach ($line as $char) {
                 fwrite($this->stream, $char);
             }
             $this->newLine();
         }
+
+        $this->showCursor();
     }
 
     private function newLine()
     {
         fwrite($this->stream, PHP_EOL);
+    }
+
+    private function moveCursorToStart()
+    {
+        fwrite($this->stream, "\033[0;0f");
+    }
+
+    private function hideCursor()
+    {
+        fwrite($this->stream, "\033[?25l");
+    }
+
+    private function showCursor()
+    {
+        fwrite($this->stream, "\033[?25h\033[?0c");
     }
 }

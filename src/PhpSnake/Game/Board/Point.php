@@ -22,8 +22,8 @@ class Point
     private $char;
 
     /**
-     * @param int $row
-     * @param int $col
+     * @param int    $row
+     * @param int    $col
      * @param string $char
      */
     public function __construct(int $row, int $col, string $char)
@@ -57,4 +57,11 @@ class Point
         return $this->char;
     }
 
+    /**
+     * @param string $char
+     */
+    public function setChar($char)
+    {
+        $this->char = $char;
+    }
 }
