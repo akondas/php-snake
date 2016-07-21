@@ -10,6 +10,15 @@ Run simple command in CLI:
 php snake.php
 ```
 
+Keys:
+
+```
+w - move up
+a - move left
+s - move down
+d - move right
+```
+
 ## References
 
 * [Box drawing in PHP](http://jonathonhill.net/2012-11-26/box-drawing-in-php/)
