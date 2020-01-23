@@ -36,8 +36,10 @@ class Game
 
     public function run()
     {
+        $input = '';
+        $escapeChar = 'x';
         try {
-            while (true) {
+            while ($input != $escapeChar) {
                 $input = $this->terminal->getChar();
                 $this->board->moveSnake($input);
                 $this->drawBoard();
